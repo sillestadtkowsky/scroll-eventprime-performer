@@ -265,7 +265,6 @@ function generate_links($postType) {
   return $links;
 }
 
-
 class Sep_Scroll_Eventprime_Widget extends WP_Widget {
   private $widget_id;
 
