@@ -121,7 +121,7 @@ function sep_widget_shortcode($atts) {
 
   // Add featured text container
   $output = "<div class='sep-widget-outer-container'>";
-  $output .= "<div class='sep-widget-featured'>{$atts['label']}</div>";
+  $output .= "<div class='sep-widget-featured'><span>{$atts['label']}</span></div>";
 
   $output .= '<div class="sep-widget-container">';
   $output .= '<div class="sep-widget-links">';
@@ -187,14 +187,27 @@ function sep_widget_shortcode($atts) {
         vertical-align: middle;
       }
 
-      .sep-widget-featured {
-        background-color: #1BB6D8;
-        color: white;
-        padding: 0px 15px 0px 15px;
-        display: inline-block;
-        vertical-align: middle;
-        float: left;
-      }
+		.sep-widget-featured {
+		  position: relative;
+		  display: inline-block;
+		  padding: 0 15px;
+		  margin-right: 20px;
+		  color: white;
+		  background-color: #1BB6D8;
+		  float: left;
+		}
+
+		.sep-widget-featured:before {
+		  content: '';
+		  position: absolute;
+		  top: 0;
+		  bottom: 0;
+		  right: -15px;
+		  width: 0;
+		  border-bottom: 30px solid transparent;
+		  border-left: 15px solid #1BB6D8;
+		}
+
   </style>";
 
   $output .= "<script>
