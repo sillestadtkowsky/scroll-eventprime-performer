@@ -1,11 +1,15 @@
 <?php
-/*
-Plugin Name: EventPrime Scroll Widget
-Plugin URI: https://osowsky-webdesign.de/plugins/eventprime-scroll-widget
-Description: This plugin generates links from posts with a specific post_type and displays them in a scrolling widget.
-Version: 1.2.6
-Author: Silvio Osowsky
-Author URI: https://osowsky-webdesign.de/
+/**
+* Plugin Name: EventPrime Scroll Widget
+* Plugin URI: https://osowsky-webdesign.de/plugins/eventprime-scroll-widget
+* Description: This plugin generates links from posts with a specific post_type and displays them in a scrolling widget.
+* Version: 1.2.6
+* Requires at least: 5.8.0
+* Requires PHP:      8.0
+* Author: Silvio Osowsky
+* License: GPLv3 or later
+* License URI: https://www.gnu.org/licenses/gpl-3.0.html
+* Author URI: https://osowsky-webdesign.de/
 */
 
 // Register plugin settings page
@@ -314,5 +318,5 @@ class Sep_Scroll_Eventprime_Widget extends WP_Widget {
   }
 }
 
-// Kurzcode-Generator
-add_shortcode( 'sep_widget', 'sep_widget_shortcode' );
+// ShortCode
+add_shortcode( 'sep-widget', 'sep_widget_shortcode' );
