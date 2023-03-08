@@ -3,7 +3,7 @@
 * Plugin Name: EventPrime Scroll Widget
 * Plugin URI: https://osowsky-webdesign.de/plugins/eventprime-scroll-widget
 * Description: This plugin generates links from posts with a specific post_type and displays them in a scrolling widget.
-* Version: 1.2.6
+* Version: 1.2.7
 * Requires at least: 5.8.0
 * Requires PHP:      8.0
 * Author: Silvio Osowsky
@@ -28,10 +28,10 @@ function sep_scroll_plugin_settings() {
 function sep_scroll_plugin_options() {
   // Get the saved values for the shortcode attributes
   $options = get_option('sep_scroll_plugin_options');
-  $label = isset($options['label']) ? $options['label'] : 'Featured';
-  $posttype = isset($options['posttype']) ? $options['posttype'] : 'em_performer';
-  $timeOut = isset($options['timeOut']) ? $options['timeOut'] : '500';
-  $interVal = isset($options['interVal']) ? $options['interVal'] : '4000';
+  $label = isset($options['label']) ? wp_strip_all_tags($options['label']) : 'Featured';
+  $posttype = isset($options['posttype']) ? wp_strip_all_tags($options['posttype']) : 'em_performer';
+  $timeOut = isset($options['timeOut']) ? wp_strip_all_tags($options['timeOut']) : '500';
+  $interVal = isset($options['interVal']) ? wp_strip_all_tags($options['interVal']) : '4000';
 
   $posttypes = array(
     'em_performer' => 'Performers',
@@ -111,10 +111,10 @@ function sep_widget_shortcode($atts) {
   // Get the saved values for the shortcode attributes
   $options = get_option('sep_scroll_plugin_options');
   $atts = shortcode_atts( array(
-    'label' => isset($options['label']) ? $options['label'] : 'Featured',
-    'type' => isset($options['posttype']) ? $options['posttype'] : 'em_performer',
-    'timeOut' => isset($options['timeOut']) ? $options['timeOut'] : '500',
-    'interVal' => isset($options['interVal']) ? $options['interVal'] : '4000',
+    'label' => isset($options['label']) ? wp_strip_all_tags($options['label']) : 'Featured',
+    'type' => isset($options['posttype']) ? wp_strip_all_tags($options['posttype']) : 'em_performer',
+    'timeOut' => isset($options['timeOut']) ? wp_strip_all_tags($options['timeOut']) : '500',
+    'interVal' => isset($options['interVal']) ? wp_strip_all_tags($options['interVal']) : '4000',
   ), $atts, 'sep_widget' );
 
   $links = generate_links($atts['type']);
