@@ -40,12 +40,14 @@ function sep_scroll_plugin_options() {
   
   ?>
     <div class="wrap">
-      <h1>EventPrime Scroll Widget Plugin</h1>
+      <h1>EventPrime Scroll Widget</h1>
       <p><?php _e( 'This plugin generates links from posts with a specific post_type and displays them in a scrolling widget.', 'eventprime-scroll-widget' ); ?></p>
+      <h2>ShortCode</h2>
+      <p><?php _e( '<code>[sep-widget]</code>', 'eventprime-scroll-widget' ); ?></p>
       <form method="post" action="options.php">
         <?php settings_fields('sep_scroll_plugin_options_group'); ?>
         <?php do_settings_sections('sep_scroll_plugin_settings'); ?>
-        <h2><?php _e( 'Shortcode Attributes:', 'eventprime-scroll-widget' ); ?></h2>
+        <h2><?php _e( 'Shortcode Steuerung:', 'eventprime-scroll-widget' ); ?></h2>
         <table class="form-table">
           <tbody>
             <tr>
@@ -305,16 +307,6 @@ class Sep_Scroll_Eventprime_Widget extends WP_Widget {
     echo $args['before_widget'] . $output . $args['after_widget'];
 
     echo $args['after_widget'];
-  }
-
-  // Formular im Administrationsbereich
-  public function form( $instance ) {
-
-  }
-
-  // Speicherung der Einstellungen im Administrationsbereich
-  public function update( $new_instance, $old_instance ) {
-
   }
 }
 
