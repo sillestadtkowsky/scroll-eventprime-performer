@@ -1,9 +1,9 @@
 <?php
 /**
-* Plugin Name: EventPrime Scroll Widget
-* Plugin URI: https://osowsky-webdesign.de/plugins/eventprime-scroll-widget
-* Description: This plugin generates links from posts with a specific post_type and displays them in a scrolling widget.
-* Version: 1.2.7
+* Plugin Name: Scroll Widget for EventPrime
+* Plugin URI: https://osowsky-webdesign.de/plugins/scroll-widget-for-eventprime
+* Description: This plugin generates links from posts eventprime with a specific post_type and displays them in a scrolling widget. IMPORTANT! This is clearly NOT an official plugin from EventTime
+* Version: 1.2.8
 * Requires at least: 5.8.0
 * Requires PHP:      8.0
 * Author: Silvio Osowsky
@@ -17,8 +17,8 @@ add_action('admin_menu', 'sep_scroll_plugin_settings');
 
 function sep_scroll_plugin_settings() {
   add_options_page(
-    'EventPrime Scroll Widget', // Page title
-    'EventPrime Scroll', // Menu title
+    'Scroll Widget for EventPrime', // Page title
+    'Scroll Widget for EventPrime', // Menu title
     'manage_options', // Capability
     'sep-scroll-plugin-settings', // Menu slug
     'sep_scroll_plugin_options' // Callback function
@@ -40,19 +40,19 @@ function sep_scroll_plugin_options() {
   
   ?>
     <div class="wrap">
-      <h1>EventPrime Scroll Widget</h1>
-      <p><?php _e( 'This plugin generates links from posts with a specific post_type and displays them in a scrolling widget.', 'eventprime-scroll-widget' ); ?></p>
+      <h1>Scroll Widget for EventPrime</h1>
+      <p><?php _e( 'This plugin generates links from posts of the officiel EventPrime-Plugin with a specific post_type and displays them in a scrolling widget.', 'scroll-widget-for-eventprime' ); ?></p>
       <h2>ShortCode</h2>
-      <p><?php _e( '<code>[sep-widget]</code>', 'eventprime-scroll-widget' ); ?></p>
+      <p><?php _e( '<code>[sep-widget]</code>', 'scroll-widget-for-eventprime' ); ?></p>
       <form method="post" action="options.php">
         <?php settings_fields('sep_scroll_plugin_options_group'); ?>
         <?php do_settings_sections('sep_scroll_plugin_settings'); ?>
-        <h2><?php _e( 'Shortcode Steuerung:', 'eventprime-scroll-widget' ); ?></h2>
+        <h2><?php _e( 'Shortcode Steuerung:', 'scroll-widget-for-eventprime' ); ?></h2>
         <table class="form-table">
           <tbody>
             <tr>
               <th scope="row">
-                <label for="label"><?php _e( 'Label', 'eventprime-scroll-widget' ); ?></label>
+                <label for="label"><?php _e( 'Label', 'scroll-widget-for-eventprime' ); ?></label>
               </th>
               <td>
                 <input type="text" id="label" name="sep_scroll_plugin_options[label]" value="<?php echo esc_attr($label); ?>">
@@ -60,7 +60,7 @@ function sep_scroll_plugin_options() {
             </tr>
             <tr>
               <th scope="row">
-                <label for="posttype"><?php _e( 'PostType', 'eventprime-scroll-widget' ); ?></label>
+                <label for="posttype"><?php _e( 'PostType', 'scroll-widget-for-eventprime' ); ?></label>
               </th>
               <td>
                 <select id="posttype" name="sep_scroll_plugin_options[posttype]">
@@ -72,7 +72,7 @@ function sep_scroll_plugin_options() {
             </tr>
             <tr>
               <th scope="row">
-                <label for="timeOut"><?php _e( 'TimeOut', 'eventprime-scroll-widget' ); ?> (ms)</label>
+                <label for="timeOut"><?php _e( 'TimeOut', 'scroll-widget-for-eventprime' ); ?> (ms)</label>
               </th>
               <td>
                 <input type="text" id="timeOut" name="sep_scroll_plugin_options[timeOut]" value="<?php echo esc_attr($timeOut); ?>">
@@ -80,7 +80,7 @@ function sep_scroll_plugin_options() {
             </tr>
             <tr>
               <th scope="row">
-                <label for="interVal"><?php _e( 'Interval', 'eventprime-scroll-widget' ); ?> (ms)</label>
+                <label for="interVal"><?php _e( 'Interval', 'scroll-widget-for-eventprime' ); ?> (ms)</label>
               </th>
               <td>
                 <input type="text" id="interVal" name="sep_scroll_plugin_options[interVal]" value="<?php echo esc_attr($interVal); ?>">
@@ -187,27 +187,26 @@ function sep_widget_shortcode($atts) {
         vertical-align: middle;
       }
 
-		.sep-widget-featured {
-		  position: relative;
-		  display: inline-block;
-		  padding: 0 15px;
-		  margin-right: 20px;
-		  color: white;
-		  background-color: #1BB6D8;
-		  float: left;
-		}
+      .sep-widget-featured {
+        position: relative;
+        display: inline-block;
+        padding: 0 15px;
+        margin-right: 20px;
+        color: white;
+        background-color: #1BB6D8;
+        float: left;
+      }
 
-		.sep-widget-featured:before {
-		  content: '';
-		  position: absolute;
-		  top: 0;
-		  bottom: 0;
-		  right: -15px;
-		  width: 0;
-		  border-bottom: 30px solid transparent;
-		  border-left: 15px solid #1BB6D8;
-		}
-
+      .sep-widget-featured:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: -15px;
+        width: 0;
+        border-bottom: 30px solid transparent;
+        border-left: 15px solid #1BB6D8;
+      }
   </style>";
 
   $output .= "<script>
@@ -286,7 +285,7 @@ class Sep_Scroll_Eventprime_Widget extends WP_Widget {
     parent::__construct(
       'sep_scroll_event_prime_widget', // Widget-Identifikator
       __( 'Scroll EventPrime Performer', 'text_domain' ), // Widget-Name
-      array( 'description' => __( 'Displays links from posts with a specific post_type in a scrolling widget.', 'text_domain' ), // Widget-Beschreibung
+      array( 'description' => __( 'Displays links from posts with a specific post_type from EventPrim in a scrolling widget.', 'text_domain' ), // Widget-Beschreibung
       )
     );
     $this->widget_id = $this->id_base . '-' . $this->number;
