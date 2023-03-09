@@ -94,8 +94,6 @@ function sep_scroll_plugin_options() {
   <?php
 }
 
-
-
 // Register widget
 add_action( 'widgets_init', function() {
   register_widget( 'Sep_Scroll_Eventprime_Widget' );
