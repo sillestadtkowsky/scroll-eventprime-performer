@@ -3,7 +3,7 @@ Donate link: https://osowsky-webdesign.de
 Tags: wordpress, widget, scroll, eventprime
 Requires at least: 5.0
 Tested up to: 6.1.1
-Stable tag: 1.2.6
+Stable tag: 1.2.9
 Requires PHP: 8.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
