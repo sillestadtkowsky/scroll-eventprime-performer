@@ -3,7 +3,7 @@
 * Plugin Name: Scroll Widget for EventPrime
 * Plugin URI: https://osowsky-webdesign.de/plugins/scroll-widget-for-eventprime
 * Description: This plugin generates links from posts eventprime with a specific post_type and displays them in a scrolling widget. IMPORTANT! This is clearly NOT an official plugin from EventTime
-* Version: 1.2.8
+* Version: 1.2.9
 * Requires at least: 5.8.0
 * Requires PHP:      8.0
 * Author: Silvio Osowsky
@@ -41,7 +41,7 @@ function sep_scroll_plugin_options() {
   ?>
     <div class="wrap">
       <h1>Scroll Widget for EventPrime</h1>
-      <p><?php _e( 'This plugin generates links from posts of the officiel EventPrime-Plugin with a specific post_type and displays them in a scrolling widget.', 'scroll-widget-for-eventprime' ); ?></p>
+      <p><?php _e( 'This plugin generates links from posts of the official EventPrime-Plugin with a specific post_type and displays them in a scrolling widget.', 'scroll-widget-for-eventprime' ); ?></p>
       <h2>ShortCode</h2>
       <p><?php _e( '<code>[sep-widget]</code>', 'scroll-widget-for-eventprime' ); ?></p>
       <form method="post" action="options.php">
