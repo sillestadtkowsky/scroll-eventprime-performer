@@ -35,7 +35,8 @@ function sep_scroll_plugin_options() {
 
   $posttypes = array(
     'em_performer' => 'Performers',
-    'em_event' => 'Events'
+    'em_event' => 'Events',
+    'post' => 'Posts'
   );
   
   ?>
