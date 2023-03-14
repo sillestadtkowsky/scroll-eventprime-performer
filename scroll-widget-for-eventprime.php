@@ -1,9 +1,9 @@
 <?php
 /**
 * Plugin Name: Scroll Widget for EventPrime
-* Plugin URI: https://osowsky-webdesign.de/plugins/scroll-widget-for-eventprime
+* Plugin URI: https://osowsky-webdesign.de/plugins/scroll-widget-for-eventprime/
 * Description: This plugin generates links from posts eventprime with a specific post_type and displays them in a scrolling widget. IMPORTANT! This is clearly NOT an official plugin from EventTime
-* Version: 1.2.9
+* Version: 1.3.0
 * Requires at least: 5.8.0
 * Requires PHP:      8.0
 * Author: Silvio Osowsky
@@ -13,21 +13,21 @@
 */
 
 // Register plugin settings page
-add_action('admin_menu', 'sep_scroll_plugin_settings');
+add_action('admin_menu', 'sw_so_scroll_plugin_settings');
 
-function sep_scroll_plugin_settings() {
+function sw_so_scroll_plugin_settings() {
   add_options_page(
     'Scroll Widget for EventPrime', // Page title
     'Scroll Widget for EventPrime', // Menu title
     'manage_options', // Capability
     'sep-scroll-plugin-settings', // Menu slug
-    'sep_scroll_plugin_options' // Callback function
+    'sw_so_scroll_plugin_options' // Callback function
   );
 }
 
-function sep_scroll_plugin_options() {
+function sw_so_scroll_plugin_options() {
   // Get the saved values for the shortcode attributes
-  $options = get_option('sep_scroll_plugin_options');
+  $options = sw_so_get_option('sw_so_scroll_plugin_options');
   $label = isset($options['label']) ? wp_strip_all_tags($options['label']) : 'Featured';
   $posttype = isset($options['posttype']) ? wp_strip_all_tags($options['posttype']) : 'em_performer';
   $timeOut = isset($options['timeOut']) ? wp_strip_all_tags($options['timeOut']) : '500';
@@ -42,29 +42,29 @@ function sep_scroll_plugin_options() {
   ?>
     <div class="wrap">
       <h1>Scroll Widget for EventPrime</h1>
-      <p><?php _e( 'This plugin generates links from posts of the official EventPrime-Plugin with a specific post_type and displays them in a scrolling widget.', 'scroll-widget-for-eventprime' ); ?></p>
+      <p><?php _e( 'This plugin generates links from posts of the official EventPrime-Plugin with a specific post_type and displays them in a scrolling widget.', 'sw_so_scroll-widget-for-eventprime' ); ?></p>
       <h2>ShortCode</h2>
-      <p><?php _e( '<code>[sep-widget]</code>', 'scroll-widget-for-eventprime' ); ?></p>
+      <p><?php _e( '<code>[sw_so_widget]</code>', 'sw_so_scroll-widget-for-eventprime' ); ?></p>
       <form method="post" action="options.php">
-        <?php settings_fields('sep_scroll_plugin_options_group'); ?>
-        <?php do_settings_sections('sep_scroll_plugin_settings'); ?>
-        <h2><?php _e( 'Shortcode Steuerung:', 'scroll-widget-for-eventprime' ); ?></h2>
+        <?php settings_fields('sw_so_scroll_plugin_options_group'); ?>
+        <?php do_settings_sections('sw_so_scroll_plugin_settings'); ?>
+        <h2><?php _e( 'Shortcode Steuerung:', 'sw_so_scroll-widget-for-eventprime' ); ?></h2>
         <table class="form-table">
           <tbody>
             <tr>
               <th scope="row">
-                <label for="label"><?php _e( 'Label', 'scroll-widget-for-eventprime' ); ?></label>
+                <label for="label"><?php _e( 'Label', 'sw_so_scroll-widget-for-eventprime' ); ?></label>
               </th>
               <td>
-                <input type="text" id="label" name="sep_scroll_plugin_options[label]" value="<?php echo esc_attr($label); ?>">
+                <input type="text" id="label" name="sw_so_scroll_plugin_options[label]" value="<?php echo esc_attr($label); ?>">
               </td>
             </tr>
             <tr>
               <th scope="row">
-                <label for="posttype"><?php _e( 'PostType', 'scroll-widget-for-eventprime' ); ?></label>
+                <label for="posttype"><?php _e( 'PostType', 'sw_so_scroll-widget-for-eventprime' ); ?></label>
               </th>
               <td>
-                <select id="posttype" name="sep_scroll_plugin_options[posttype]">
+                <select id="posttype" name="sw_so_scroll_plugin_options[posttype]">
                   <?php foreach ($posttypes as $value => $name) { ?>
                     <option value="<?php echo esc_attr($value); ?>" <?php selected($posttype, $value); ?>><?php echo esc_html($name); ?></option>
                   <?php } ?>
@@ -73,18 +73,18 @@ function sep_scroll_plugin_options() {
             </tr>
             <tr>
               <th scope="row">
-                <label for="timeOut"><?php _e( 'TimeOut', 'scroll-widget-for-eventprime' ); ?> (ms)</label>
+                <label for="timeOut"><?php _e( 'TimeOut', 'sw_so_scroll-widget-for-eventprime' ); ?> (ms)</label>
               </th>
               <td>
-                <input type="text" id="timeOut" name="sep_scroll_plugin_options[timeOut]" value="<?php echo esc_attr($timeOut); ?>">
+                <input type="text" id="timeOut" name="sw_so_scroll_plugin_options[timeOut]" value="<?php echo esc_attr($timeOut); ?>">
               </td>
             </tr>
             <tr>
               <th scope="row">
-                <label for="interVal"><?php _e( 'Interval', 'scroll-widget-for-eventprime' ); ?> (ms)</label>
+                <label for="interVal"><?php _e( 'Interval', 'sw_so_scroll-widget-for-eventprime' ); ?> (ms)</label>
               </th>
               <td>
-                <input type="text" id="interVal" name="sep_scroll_plugin_options[interVal]" value="<?php echo esc_attr($interVal); ?>">
+                <input type="text" id="interVal" name="sw_so_scroll_plugin_options[interVal]" value="<?php echo esc_attr($interVal); ?>">
               </td>
             </tr>
           </tbody>
@@ -97,45 +97,45 @@ function sep_scroll_plugin_options() {
 
 // Register widget
 add_action( 'widgets_init', function() {
-  register_widget( 'Sep_Scroll_Eventprime_Widget' );
+  register_widget( 'sw_so_Scroll_Eventprime_Widget' );
 });
 
-function sep_scroll_plugin_register_options() {
-  register_setting( 'sep_scroll_plugin_options_group', 'sep_scroll_plugin_options' );
+function sw_so_scroll_plugin_register_options() {
+  register_setting( 'sw_so_scroll_plugin_options_group', 'sw_so_scroll_plugin_options' );
 }
-add_action( 'admin_init', 'sep_scroll_plugin_register_options' );
+add_action( 'admin_init', 'sw_so_scroll_plugin_register_options' );
 
 // Create shortcode
-function sep_widget_shortcode($atts) {
+function sw_so_widget_shortcode($atts) {
   // Get the saved values for the shortcode attributes
-  $options = get_option('sep_scroll_plugin_options');
+  $options = sw_so_get_option('sw_so_scroll_plugin_options');
   $atts = shortcode_atts( array(
     'label' => isset($options['label']) ? wp_strip_all_tags($options['label']) : 'Featured',
     'type' => isset($options['posttype']) ? wp_strip_all_tags($options['posttype']) : 'em_performer',
     'timeOut' => isset($options['timeOut']) ? wp_strip_all_tags($options['timeOut']) : '500',
     'interVal' => isset($options['interVal']) ? wp_strip_all_tags($options['interVal']) : '4000',
-  ), $atts, 'sep_widget' );
+  ), $atts, 'sw_so_widget' );
 
-  $links = generate_links($atts['type']);
+  $links = sw_so_generate_links($atts['type']);
 
   // Add featured text container
-  $output = "<div class='sep-widget-outer-container'>";
-  $output .= "<div class='sep-widget-featured'><span>{$atts['label']}</span></div>";
+  $output = "<div class='sw_so_widget-outer-container'>";
+  $output .= "<div class='sw_so_widget-featured'><span>{$atts['label']}</span></div>";
 
-  $output .= '<div class="sep-widget-container">';
-  $output .= '<div class="sep-widget-links">';
+  $output .= '<div class="sw_so_widget-container">';
+  $output .= '<div class="sw_so_widget-links">';
   foreach ( $links as $link ) {
-    $output .= '<div class="sep-widget-link">' . $link . '</div>';
+    $output .= '<div class="sw_so_widget-link">' . $link . '</div>';
   }
   $output .= '</div>';
   $output .= '</div>';
   $output .= '</div>';
 
   $output .= "<style>
-      .sep-widget-outer-container{
+      .sw_so_widget-outer-container{
           padding: 15px;
       }
-      .sep-widget-link {
+      .sw_so_widget-link {
         margin-right: 20px;
         height: 30px;
         line-height: 30px;
@@ -150,7 +150,7 @@ function sep_widget_shortcode($atts) {
         animation-timing-function: ease-in-out;
       }
 
-      .sep-widget-link:first-child {
+      .sw_so_widget-link:first-child {
         display: block;
       }
 
@@ -178,7 +178,7 @@ function sep_widget_shortcode($atts) {
         }
       }
 
-      .sep-widget-container {
+      .sw_so_widget-container {
         height: 30px;
         overflow: hidden;
         position: relative;
@@ -186,7 +186,7 @@ function sep_widget_shortcode($atts) {
         vertical-align: middle;
       }
 
-      .sep-widget-featured {
+      .sw_so_widget-featured {
         position: relative;
         display: inline-block;
         padding: 0 15px;
@@ -196,7 +196,7 @@ function sep_widget_shortcode($atts) {
         float: left;
       }
 
-      .sep-widget-featured:before {
+      .sw_so_widget-featured:before {
         content: '';
         position: absolute;
         top: 0;
@@ -210,7 +210,7 @@ function sep_widget_shortcode($atts) {
 
   $output .= "<script>
       var scrollEventPrimePerformer = function() {
-        var links = document.querySelectorAll('.sep-widget-container .sep-widget-link');
+        var links = document.querySelectorAll('.sw_so_widget-container .sw_so_widget-link');
 
         if (links.length < 2) {
           return;
@@ -247,7 +247,7 @@ function sep_widget_shortcode($atts) {
   return $output;
 }
 
-function generate_links($postType) {
+function sw_so_generate_links($postType) {
   $args = array(
     'post_type' => $postType,
     'fields' => 'ids',
@@ -259,7 +259,7 @@ function generate_links($postType) {
 
   while ( $query->have_posts() ) {
     $query->the_post();
-    $link = '<div class="sep-widget-link-wrapper">';
+    $link = '<div class="sw_so_widget-link-wrapper">';
     if($postType == 'em_performer'){
       $link .= '<a href="' . site_url( '/performer/?performer=' . get_the_ID() ) . '">' . get_the_title() . '</a>';
     }else if($postType == 'em_event'){
@@ -276,13 +276,13 @@ function generate_links($postType) {
   return $links;
 }
 
-class Sep_Scroll_Eventprime_Widget extends WP_Widget {
+class sw_so_Scroll_Eventprime_Widget extends WP_Widget {
   private $widget_id;
 
   // Widget-Konstruktor
   function __construct() {
     parent::__construct(
-      'sep_scroll_event_prime_widget', // Widget-Identifikator
+      'sw_so_scroll_event_prime_widget', // Widget-Identifikator
       __( 'Scroll EventPrime Performer', 'text_domain' ), // Widget-Name
       array( 'description' => __( 'Displays links from posts with a specific post_type from EventPrim in a scrolling widget.', 'text_domain' ), // Widget-Beschreibung
       )
@@ -292,7 +292,7 @@ class Sep_Scroll_Eventprime_Widget extends WP_Widget {
 
   // Ausgabe des Widgets
   public function widget( $args, $instance ) {
-    $links = generate_links();
+    $links = sw_so_generate_links();
 
     if ( empty( $links ) ) {
       return;
@@ -301,17 +301,17 @@ class Sep_Scroll_Eventprime_Widget extends WP_Widget {
     $output = '';
 
     if ( count( $links ) > 1 ) {
-      $output .= '<div id="' . $this->widget_id . '" class="sep-widget-container">';
-      $output .= '<div class="sep-widget-links">';
+      $output .= '<div id="' . $this->widget_id . '" class="sw_so_widget-container">';
+      $output .= '<div class="sw_so_widget-links">';
 
       foreach ( $links as $link ) {
-        $output .= '<div class="sep-widget-link">' . $link . '</div>';
+        $output .= '<div class="sw_so_widget-link">' . $link . '</div>';
       }
 
       $output .= '</div>';
       $output .= '</div>';
     } else {
-      $output .= '<div class="sep-widget-link">' . $links[0] . '</div>';
+      $output .= '<div class="sw_so_widget-link">' . $links[0] . '</div>';
     }
 
     echo $args['before_widget'] . $output . $args['after_widget'];
@@ -321,4 +321,4 @@ class Sep_Scroll_Eventprime_Widget extends WP_Widget {
 }
 
 // ShortCode
-add_shortcode( 'sep-widget', 'sep_widget_shortcode' );
+add_shortcode( 'sw_for_eventprime', 'sw_so_widget_shortcode' );
